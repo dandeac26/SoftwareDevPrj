@@ -19,13 +19,15 @@ public class Question {
     private Long id;
     @Column(name="author")
     private String author;
+    @Column(name="title")
+    private String title;
     @Column(name="creation_time")
     private Date date;
     @Column(name = "picture")
     private Long picture;
 
-    @ElementCollection
-    private List<String> tags;
+    @ManyToMany
+    private List<Tag> tags;
     @Column(name="text")
     private String text;
     public Question(){
@@ -47,11 +49,11 @@ public class Question {
         this.date = date;
     }
 
-    public List<String> getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(List<String> tags) {
+    public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
 
@@ -63,7 +65,7 @@ public class Question {
         this.text = text;
     }
 
-    public void addTag(String tag){
+    public void addTag(Tag tag){
         tags.add(tag);
     }
     public Long getId() {

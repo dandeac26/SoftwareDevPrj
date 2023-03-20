@@ -13,7 +13,8 @@ public class Answer {
     @Id
     @Column(name="id")
     private Long id;
-
+    @Column(name="author")
+    private String author;
     @Column(name="text")
     private String text;
     @Column(name="creation_time")
