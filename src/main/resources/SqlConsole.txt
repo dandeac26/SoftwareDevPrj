@@ -1,0 +1,23 @@
+use oop2;
+
+create table answer (
+
+                        id int primary key not null unique,
+
+                        text varchar(500) not null,
+
+                        author varchar(50) not null,
+
+                        creation_time datetime not null,
+
+                        picture LONGBLOB
+
+);
+
+insert into answer values
+
+    (1,"it is 4 bytes", "Andrei", CURRENT_TIME, null);
+
+// here is the code for generating the answer. It was basically derived from
+// the user which was given to us. The same is for the question.
+// I decided not to complicate things with foreign keys so thats why the author is just text.
