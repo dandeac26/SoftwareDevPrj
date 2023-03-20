@@ -34,7 +34,7 @@ public class Question {
 
     }
 
-    public Question(Long id, String author, DateTimeFormat dateTimeFormat, Long picture) {
+    public Question(Long id, String author, Date dateTimeFormat, Long picture) {
         this.id = id;
         this.author = author;
         this.date = (Date) dateTimeFormat;
@@ -84,11 +84,11 @@ public class Question {
         this.author = author;
     }
 
-    public DateTimeFormat getDateTimeFormat() {
-        return (DateTimeFormat) date;
+    public Date getDateTimeFormat() {
+        return (Date) date;
     }
 
-    public void setDateTimeFormat(DateTimeFormat dateTimeFormat) {
+    public void setDateTimeFormat(Date dateTimeFormat) {
         this.date = (Date) dateTimeFormat;
     }
 
