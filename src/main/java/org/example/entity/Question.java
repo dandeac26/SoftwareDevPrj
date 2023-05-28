@@ -2,72 +2,76 @@ package org.example.entity;
 
 import jakarta.persistence.*;
 import org.checkerframework.checker.units.qual.C;
+import org.springframework.cglib.core.Local;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.awt.*;
 import java.sql.Blob;
 import java.sql.Date;
 import java.time.DateTimeException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "question")
 public class Question {
     @Id
-    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
     @Column(name="author")
     private String author;
+
+    @Column(name="author_id")
+    private Long author_id;
     @Column(name="title")
     private String title;
     @Column(name="creation_time")
-    private Date date;
-    @Column(name = "picture")
-    private Long picture;
-
+    private LocalDateTime date;
+    @Lob
+    @Column(name = "picture", columnDefinition = "MEDIUMBLOB")
+    private String picture;
     @ManyToMany
+    @JoinTable(
+            name = "question_tag",
+            joinColumns = @JoinColumn(name = "question_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
     private List<Tag> tags;
-    @Column(name="text")
-    private String text;
+    @Column(name="body")
+    private String body;
+
+
+    @Column(name="votes")
+    private Long votes;
+
+
+
     public Question(){
 
     }
 
-    public Question(Long id, String author, Date dateTimeFormat, Long picture) {
-        this.id = id;
+    public Question(String author, Long author_id,String title, String body,LocalDateTime date, String picture, List<Tag> tags, Long votes) {
         this.author = author;
-        this.date = (Date) dateTimeFormat;
-        this.picture = picture;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
+        this.author_id = author_id;
+        this.title = title;
+        this.body = body;
         this.date = date;
-    }
-
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<Tag> tags) {
+        this.picture = picture;
         this.tags = tags;
+        this.votes = votes;
     }
 
-    public String getText() {
-        return text;
+    public Long getVotes() {
+        return votes;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setVotes(Long votes) {
+        this.votes = votes;
     }
 
-    public void addTag(Tag tag){
-        tags.add(tag);
-    }
     public Long getId() {
         return id;
     }
@@ -84,19 +88,57 @@ public class Question {
         this.author = author;
     }
 
-    public Date getDateTimeFormat() {
-        return (Date) date;
+    public Long getAuthor_id() {
+        return author_id;
     }
 
-    public void setDateTimeFormat(Date dateTimeFormat) {
-        this.date = (Date) dateTimeFormat;
+    public void setAuthor_id(Long author_id) {
+        this.author_id = author_id;
     }
 
-    public Long getPicture() {
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public String getPicture() {
         return picture;
     }
 
-    public void setPicture(Long picture) {
+    public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public List<String> getTags() {
+        if (tags != null) {
+            return tags.stream().map(Tag::getName).collect(Collectors.toList());
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+    public List<Tag> getTagsObj(){
+        return tags;
+    }
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
     }
 }

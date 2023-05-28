@@ -15,8 +15,12 @@ public class Tag {
     @Column(name="name")
     private String name;
 
-    public Tag(){
+    public Tag() {
+        // Default constructor
+    }
 
+    public Tag(String name) {
+        this.name = name;
     }
     public Tag(Long id, String name){
         this.id = id;

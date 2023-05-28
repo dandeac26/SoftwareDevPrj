@@ -18,11 +18,12 @@ public class QuestionController {
     @GetMapping("/getAll")
     @ResponseBody
     public List<Question> retrieveQuestions(){return questionService.retrieveQuestions();}
-    @GetMapping("/getById")
+    @GetMapping("/getById/{id}")
     @ResponseBody
-    public Question retrieveById(){
-        return questionService.retrieveQuestionById(1L);
+    public Question retrieveById(@PathVariable Long id){
+        return questionService.retrieveQuestionById(id);
     }
+
 
     @DeleteMapping("/deleteId={id}")
     public ResponseEntity<Void> removeQuestion(@PathVariable Long id) {
@@ -39,7 +40,7 @@ public class QuestionController {
         return ResponseEntity.ok(savedQuestion);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Question> createQuestion(@RequestBody Question newQuestion) {
         Question savedQuestion = questionService.createQuestion(newQuestion);
         return ResponseEntity.ok(savedQuestion);

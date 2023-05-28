@@ -19,9 +19,9 @@ public class UserService {
         return (List<User>) userRepository.findAll();
     }
 
-    public User retrieveUserById(Long cnp) {
+    public User retrieveUserById(Long id) {
 
-        Optional<User> user = userRepository.findById(cnp);
+        Optional<User> user = userRepository.findById(id);
 
         if(user.isPresent()) {
             return user.get();
@@ -29,12 +29,12 @@ public class UserService {
             return null;
         }
     }
-    public void removeUserById(Long cnp) {
-        userRepository.deleteById(cnp);
+    public void removeUserById(Long id) {
+        userRepository.deleteById(id);
     }
 
     public User updateUser(User updatedUser) {
-        //need to add a check if the user cnp exists!!
+        //need to add a check if the user id exists!!
         User existingUser = userRepository.findById(updatedUser.getUserId()).orElseThrow();
         existingUser.setFirstName(updatedUser.getFirstName());
         existingUser.setLastName(updatedUser.getLastName());
@@ -44,6 +44,10 @@ public class UserService {
 
     public User createUser(User newUser) {
         return userRepository.save(newUser);
+    }
+
+    public User retrieveUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
 }
