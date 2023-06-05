@@ -12,6 +12,7 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
@@ -30,16 +31,16 @@ public class Question {
     private String title;
     @Column(name="creation_time")
     private LocalDateTime date;
-    @Lob
-    @Column(name = "picture", columnDefinition = "MEDIUMBLOB")
+    @Column(name = "picture", columnDefinition = "MEDIUMTEXT")
     private String picture;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "question_tag",
             joinColumns = @JoinColumn(name = "question_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private List<Tag> tags;
+
     @Column(name="body")
     private String body;
 

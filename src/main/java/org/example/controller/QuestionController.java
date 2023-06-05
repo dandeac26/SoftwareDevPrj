@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -36,6 +37,7 @@ public class QuestionController {
         if (!id.equals(updatedQuestion.getId())) {
             throw new IllegalArgumentException("ID in path must match ID in request body");
         }
+        updatedQuestion.setDate(LocalDateTime.now());
         Question savedQuestion = questionService.updateQuestion(updatedQuestion);
         return ResponseEntity.ok(savedQuestion);
     }

@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionService {
@@ -57,8 +58,23 @@ public class QuestionService {
         List<Tag> existingTags = tagRepository.findByNameIn(newQuestion.getTags());
 
         newQuestion.setTags(existingTags);
-        //set the current date and time as the date of the question
+
         newQuestion.setDate(LocalDateTime.now());
+
+
+        List<Tag> tagEntities = newQuestion.getTags().stream()
+                .map(tagName -> {
+                    Tag tag = tagRepository.findByName(tagName);
+                    if (tag == null) {
+                        tag = new Tag(tagName);  // This assumes Tag has a constructor that accepts a name
+                        tagRepository.save(tag);
+                    }
+                    return tag;
+                })
+                .collect(Collectors.toList());
+
+        newQuestion.setTags(tagEntities);
+       // questionRepository.save(newQuestion);
 
         return questionRepository.save(newQuestion);
     }
