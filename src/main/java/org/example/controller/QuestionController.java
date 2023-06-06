@@ -1,12 +1,12 @@
 package org.example.controller;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.example.entity.Question;
-import org.example.entity.User;
 import org.example.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.example.entity.UserIdWrapper;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -47,5 +47,21 @@ public class QuestionController {
         Question savedQuestion = questionService.createQuestion(newQuestion);
         return ResponseEntity.ok(savedQuestion);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Question>> searchQuestions(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String author,
+            @RequestParam(required = false) String tagName
+    ) {
+        List<Question> searchedQuestions = questionService.searchQuestions(title, author, tagName);
+        return ResponseEntity.ok(searchedQuestions);
+    }
+
+//    @PutMapping("/vote/{id}")
+//    public ResponseEntity<Void> voteQuestion(@PathVariable Long id, @RequestParam int vote, @RequestParam Long userId) {
+//        questionService.voteQuestion(id, vote, userId);
+//        return ResponseEntity.noContent().build();
+//    }
 
 }

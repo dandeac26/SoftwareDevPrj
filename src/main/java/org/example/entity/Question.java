@@ -33,6 +33,13 @@ public class Question {
     private LocalDateTime date;
     @Column(name = "picture", columnDefinition = "MEDIUMTEXT")
     private String picture;
+
+    //@OneToMany(mappedBy = "questionId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //private List<Vote> votes;
+
+    @Column(name="votes")
+    private Long votes;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "question_tag",
@@ -43,10 +50,6 @@ public class Question {
 
     @Column(name="body")
     private String body;
-
-
-    @Column(name="votes")
-    private Long votes;
 
 
 
@@ -64,6 +67,13 @@ public class Question {
         this.tags = tags;
         this.votes = votes;
     }
+//    public int calculateTotalVotes() {
+//        int totalVotes = 0;
+//        for (Vote vote : this.votes) {
+//            totalVotes += vote.isUpvote() ? 1 : -1;
+//        }
+//        return totalVotes;
+//    }
 
     public Long getVotes() {
         return votes;
@@ -142,4 +152,5 @@ public class Question {
     public void setBody(String body) {
         this.body = body;
     }
+
 }

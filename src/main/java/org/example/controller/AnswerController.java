@@ -29,6 +29,14 @@ public class AnswerController {
         return answerService.retrieveAnswerById(1L);
     }
 
+    @GetMapping("/getByQuestion/{questionId}")
+    @ResponseBody
+    public List<Answer> retrieveByQuestion(@PathVariable Long questionId){
+        return answerService.retrieveAnswersByQuestionId(questionId);
+    }
+
+
+
     @DeleteMapping("/deleteId={id}")
     public ResponseEntity<Void> removeAnswer(@PathVariable Long id) {
         answerService.removeAnswerById(id);
@@ -43,7 +51,7 @@ public class AnswerController {
         Answer savedAnswer = answerService.updateAnswer(updatedAnswer);
         return ResponseEntity.ok(savedAnswer);
     }
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Answer> createAnswer(@RequestBody Answer newAnswer) {
         Answer savedAnswer = answerService.createAnswer(newAnswer);
         return ResponseEntity.ok(savedAnswer);
