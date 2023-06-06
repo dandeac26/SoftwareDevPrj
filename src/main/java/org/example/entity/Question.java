@@ -1,5 +1,6 @@
 package org.example.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.checkerframework.checker.units.qual.C;
 import org.springframework.cglib.core.Local;
@@ -10,9 +11,8 @@ import java.sql.Blob;
 import java.sql.Date;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
@@ -37,8 +37,8 @@ public class Question {
     //@OneToMany(mappedBy = "questionId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     //private List<Vote> votes;
 
-    @Column(name="votes")
-    private Long votes;
+    @Column(name="vote_count")
+    private int voteCount;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -51,13 +51,18 @@ public class Question {
     @Column(name="body")
     private String body;
 
-
+    @JsonIgnore
+    @ElementCollection
+    @CollectionTable(name = "question_votes", joinColumns = @JoinColumn(name = "question_id"))
+    @MapKeyColumn(name = "user_id")
+    @Column(name = "vote")
+    private Map<String, Integer> votes = new HashMap<>();
 
     public Question(){
 
     }
 
-    public Question(String author, Long author_id,String title, String body,LocalDateTime date, String picture, List<Tag> tags, Long votes) {
+    public Question(String author, Long author_id,String title, String body,LocalDateTime date,int voteCount, String picture, List<Tag> tags, Map<String, Integer> votes) {
         this.author = author;
         this.author_id = author_id;
         this.title = title;
@@ -66,6 +71,7 @@ public class Question {
         this.picture = picture;
         this.tags = tags;
         this.votes = votes;
+        this.voteCount = voteCount;
     }
 //    public int calculateTotalVotes() {
 //        int totalVotes = 0;
@@ -75,14 +81,21 @@ public class Question {
 //        return totalVotes;
 //    }
 
-    public Long getVotes() {
+    public int getVoteCount() {
+        return voteCount;
+    }
+
+    public void setVoteCount(int voteCount) {
+        this.voteCount = voteCount;
+    }
+
+    public Map<String, Integer> getVotes() {
         return votes;
     }
 
-    public void setVotes(Long votes) {
+    public void setVotes(Map<String, Integer> votes) {
         this.votes = votes;
     }
-
     public Long getId() {
         return id;
     }

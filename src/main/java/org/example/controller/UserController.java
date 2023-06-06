@@ -39,10 +39,13 @@ public class UserController {
     @GetMapping("/getByEmail")
     @ResponseBody
     public User retrieveByEmail(@RequestParam("email") String email) {
-        return userService.retrieveUserByEmail(email);
+        User user = userService.retrieveUserByEmail(email);
+        if (user == null) {
+            return null;
+        } else {
+            return user;
+        }
     }
-
-
 
 
 

@@ -4,21 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="891dfbe1-e390-4c6a-9ce7-e33d1a41e41a" name="Changes" comment="Commit-Assignment3-monday">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/UserIdWrapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/Vote.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/VoteRepository.java" afterDir="false" />
+    <list default="true" id="891dfbe1-e390-4c6a-9ce7-e33d1a41e41a" name="Changes" comment="Commit-Assignment3tuesday">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/AnswerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/AnswerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/QuestionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/QuestionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/Answer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/Answer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/Question.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/Tag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/Tag.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/AnswerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/AnswerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/QuestionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/QuestionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/TagRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/TagRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/AnswerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/AnswerService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/QuestionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/QuestionService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -153,6 +144,7 @@
       <workItem from="1685968288888" duration="16675000" />
       <workItem from="1686016702196" duration="13743000" />
       <workItem from="1686070710240" duration="8515000" />
+      <workItem from="1686084950100" duration="5522000" />
     </task>
     <task id="LOCAL-00001" summary="Commit-Assignment1">
       <created>1679324312320</created>
@@ -189,7 +181,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685973442048</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Commit-Assignment3tuesday">
+      <created>1686086935710</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1686086935710</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,7 +208,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Commit-Assignment1" />
     <MESSAGE value="Commit-Assignment3-monday" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit-Assignment3-monday" />
+    <MESSAGE value="Commit-Assignment3tuesday" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit-Assignment3tuesday" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

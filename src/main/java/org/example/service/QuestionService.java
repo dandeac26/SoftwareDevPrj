@@ -56,6 +56,7 @@ public class QuestionService {
         existingQuestion.setBody(updatedQuestion.getBody());
         existingQuestion.setTags(updatedQuestion.getTagsObj());
         existingQuestion.setVotes(updatedQuestion.getVotes());
+        existingQuestion.setVoteCount(updatedQuestion.getVoteCount());
 
         return questionRepository.save(existingQuestion);
     }
