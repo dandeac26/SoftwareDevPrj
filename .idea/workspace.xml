@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="891dfbe1-e390-4c6a-9ce7-e33d1a41e41a" name="Changes" comment="Commit-Assignment3tuesday">
+    <list default="true" id="891dfbe1-e390-4c6a-9ce7-e33d1a41e41a" name="Changes" comment="Commit-Assignment3tuesday2">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/QuestionVote.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/QuestionVoteRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/QuestionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/QuestionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/Question.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/QuestionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/QuestionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/QuestionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/QuestionRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +20,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -144,7 +144,7 @@
       <workItem from="1685968288888" duration="16675000" />
       <workItem from="1686016702196" duration="13743000" />
       <workItem from="1686070710240" duration="8515000" />
-      <workItem from="1686084950100" duration="5522000" />
+      <workItem from="1686084950100" duration="10726000" />
     </task>
     <task id="LOCAL-00001" summary="Commit-Assignment1">
       <created>1679324312320</created>
@@ -188,7 +188,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686086935710</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Commit-Assignment3tuesday2">
+      <created>1686092721524</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1686092721524</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,7 +216,8 @@
     <MESSAGE value="Commit-Assignment1" />
     <MESSAGE value="Commit-Assignment3-monday" />
     <MESSAGE value="Commit-Assignment3tuesday" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit-Assignment3tuesday" />
+    <MESSAGE value="Commit-Assignment3tuesday2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit-Assignment3tuesday2" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

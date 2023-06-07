@@ -2,7 +2,9 @@ package org.example.controller;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.example.entity.Question;
+import org.example.entity.QuestionVote;
 import org.example.repository.QuestionRepository;
+import org.example.repository.VoteRepository;
 import org.example.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +24,8 @@ public class QuestionController {
     QuestionService questionService;
     @Autowired
     QuestionRepository questionRepository;
-
+    @Autowired
+    QuestionRepository questionVoteRepository;
     @GetMapping("/getAll")
     @ResponseBody
     public List<Question> retrieveQuestions(){return questionService.retrieveQuestions();}
@@ -69,9 +72,7 @@ public class QuestionController {
     public ResponseEntity<Map<String, Object>> voteQuestion(@RequestBody Map<String, Object> voteData) {
         Integer questionId = (Integer) voteData.get("questionId");
         Integer userId = (Integer) voteData.get("userId");
-
         String voteType = (String) voteData.get("voteType");
-
 
         String questionIdStr = questionId.toString();
         String userIdStr = userId.toString();
@@ -82,55 +83,100 @@ public class QuestionController {
         }
 
         Question question = questionOptional.get();
-
-        if (question.getAuthor_id().equals(userId)) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN); // User cannot vote their own question
-        }
-
         Map<String, Integer> votes = question.getVotes();
-        Integer previousVote = votes.getOrDefault(userId, 0);
+        Integer previousVote = votes.getOrDefault(userIdStr, 0);
 
-        int voteChange = 0;
-        if (voteType.equals("upvote")) {
-            if (previousVote == 1) {
-                voteChange = -1; // Remove upvote
-            } else if (previousVote == 0) {
-                voteChange = 1; // Add upvote
+        if (previousVote != 0) {
+            // If the user has voted before, we do not update the vote count or votes map unless it is a different vote type
+
+            if (previousVote == 1 && voteType.equals("downvote")) {
+                question.setVoteCount(question.getVoteCount() - 1);
+                votes.put(userIdStr, -1); // Set downvote
+            } else if (previousVote == -1 && voteType.equals("upvote")) {
+                question.setVoteCount(question.getVoteCount() + 1);
+                votes.put(userIdStr, 1); // Set upvote
+            } else if (previousVote == 1 && voteType.equals("upvote")) {
+                question.setVoteCount(question.getVoteCount() - 1);
+                votes.put(userIdStr, 0); // Reset vote
+            } else if (previousVote == -1 && voteType.equals("downvote")) {
+                question.setVoteCount(question.getVoteCount() + 1);
+                votes.put(userIdStr, 0); // Reset vote
+            } else if (previousVote == 0 && voteType.equals("upvote")) {
+                question.setVoteCount(question.getVoteCount() + 1);
+                votes.put(userIdStr, 1); // Set upvote
+            } else if (previousVote == 0 && voteType.equals("downvote")) {
+                question.setVoteCount(question.getVoteCount() - 1);
+                votes.put(userIdStr, -1); // Set downvote
+            } else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-        } else if (voteType.equals("downvote")) {
-            if (previousVote == -1) {
-                voteChange = 1; // Remove downvote
-            } else if (previousVote == 0) {
-                voteChange = -1; // Add downvote
-            }
+//            Map<String, Object> responseBody = new HashMap<>();
+//            responseBody.put("voteCount", question.getVoteCount());
+//            return new ResponseEntity<>(responseBody, HttpStatus.OK);
         }
 
-        question.setVoteCount(question.getVoteCount() + voteChange);
-
         if (voteType.equals("upvote")) {
-            if (previousVote == 1) {
-                votes.put(userIdStr, 0); // Remove upvote
-            } else {
-                votes.put(userIdStr, 1); // Upvote
-            }
+            question.setVoteCount(question.getVoteCount() + 1);
+            votes.put(userIdStr, 1); // Set upvote
         } else if (voteType.equals("downvote")) {
-            if (previousVote == -1) {
-                votes.put(userIdStr, 0); // Remove downvote
-            } else {
-                votes.put(userIdStr, -1); // Downvote
-            }
+            question.setVoteCount(question.getVoteCount() - 1);
+            votes.put(userIdStr, -1); // Set downvote
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        question.setVotes(votes);
         questionRepository.save(question);
 
-        int voteCount = votes.values().stream().reduce(0, Integer::sum);
-
         Map<String, Object> responseBody = new HashMap<>();
-        responseBody.put("voteCount", voteCount);
-
+        responseBody.put("voteCount", question.getVoteCount());
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
+
+//        Optional<QuestionVote> existingVote = questionVoteRepository.findByQuestionIdAndUserId(Long.valueOf(questionId),Long.valueOf(( userId)));
+//        if (existingVote.isPresent()) {
+//            // User has already voted on the question
+//            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+//        }
+//
+//        Optional<Question> questionOptional = questionRepository.findById(Long.valueOf(questionId));
+//        if (!questionOptional.isPresent()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//
+//        Question question = questionOptional.get();
+//
+//        if (question.getAuthor_id().equals(userId)) {
+//            return new ResponseEntity<>(HttpStatus.FORBIDDEN); // User cannot vote their own question
+//        }
+//
+//        Map<String, Integer> votes = question.getVotes();
+//        Integer previousVote = votes.getOrDefault(userId, 0);
+//
+//        // Check if the user has voted on the question before
+//        if(previousVote != 0) {
+//            // If the user has voted before, we do not update the vote count or votes map
+//            Map<String, Object> responseBody = new HashMap<>();
+//            responseBody.put("voteCount", question.getVoteCount());
+//            return new ResponseEntity<>(responseBody, HttpStatus.OK);
+//        }
+//
+//        if (voteType.equals("upvote")) {
+//            question.setVoteCount(question.getVoteCount() + 1);
+//            votes.put(userIdStr, 1); // Set upvote
+//        } else if (voteType.equals("downvote")) {
+//            question.setVoteCount(question.getVoteCount() - 1);
+//            votes.put(userIdStr, -1); // Set downvote
+//        }
+
+//        question.setVotes(votes);
+//        questionRepository.save(question);
+//
+//        Map<String, Object> responseBody = new HashMap<>();
+//        responseBody.put("voteCount", question.getVoteCount());
+//
+//        return new ResponseEntity<>(responseBody, HttpStatus.OK);
+//    }
+
 
 
 }

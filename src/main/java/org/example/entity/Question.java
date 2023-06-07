@@ -21,7 +21,7 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private Long questionId;
     @Column(name="author")
     private String author;
 
@@ -97,11 +97,11 @@ public class Question {
         this.votes = votes;
     }
     public Long getId() {
-        return id;
+        return questionId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.questionId = id;
     }
 
     public String getAuthor() {
